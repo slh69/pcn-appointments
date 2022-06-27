@@ -68,7 +68,7 @@
                 </div>
                 <div>
                     <button type="button"
-                        class="ml-6 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
+                        class="ml-6 rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
                         Appointment</button>
                 </div>
             </div>
@@ -480,7 +480,7 @@
         </div>
 
     </div>
-    <div class="bg-cyan-400 w-full flex justify-between p-10">
+    <div class="bg-slate-600 w-full flex justify-between p-10">
 
         <h1 class="text-white">Email: dochoskins.com</h1>
         <h1 class="text-white">(555) 555-5555</h1>

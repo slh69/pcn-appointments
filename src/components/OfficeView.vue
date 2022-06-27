@@ -137,7 +137,7 @@
             </transition>
           </Menu>
           <div class="ml-6 h-6 w-px bg-gray-300" />
-          <button type="button" class="ml-6 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add Appointment</button>
+          <button type="button" class="ml-6 rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add Appointment</button>
         </div>
         <Menu as="div" class="relative ml-6 md:hidden">
           <MenuButton class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
@@ -376,7 +376,7 @@
   </div>  </div>
 
 </div>
-  <div class="bg-cyan-400 w-full flex justify-between p-10">
+  <div class="bg-slate-600 w-full flex justify-between p-10">
 
     <h1 class="text-white">Email:  dochoskins.com</h1>
     <h1 class="text-white">(555) 555-5555</h1>
