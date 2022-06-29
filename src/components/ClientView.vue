@@ -75,9 +75,11 @@
 
             <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
                 <h4 class="text-sm font-bold">July 5 4:00 pm</h4>
-                <p class="text-xs color-gray-200">Julie Hoskins</p>
+                <p class="text-xs color-gray-200">Sam Smith</p>
+                <p class="text-xs color-gray-200">with Dr Hoskins</p>
             </div>
 
+            <h1 class="text-red-500 font-bold pt-10 px-6">Contains appointments for the signed in member and any members in his/her group</h1>
 
 
 
