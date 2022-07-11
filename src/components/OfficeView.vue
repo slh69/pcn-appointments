@@ -1,63 +1,28 @@
 <template>
-<div class="flex h-screen">
-  <div class="bg-gray-100 w-1/3 overflow-y-auto">
-    <div class="flex">
+    <div class="bg-white w-2/3 mx-auto overflow-y-auto flex justify-between">
+      <div class="flex ml-4">
         <img src="../assets/pcn.png" height='100' width='100' alt="">
-    <h1 class="flex items-center pl-4 text-4xl">PureCHIROnow</h1>
+        <h1 class="flex items-center mr-20 pl-4 text-4xl">PureCHIROnow</h1>
+      </div>
+      <div class="border-gray-200 border-2 p-6 ml-20 rounded-1 shadow-lg bg-white">
+        <h4 class="text-sm font-bold">Inter-office Message</h4>
+        <p class="text-xs color-gray-200 ">This is space for inter office announcements and / or message. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga soluta illum, neque adipisci, labore explicabo repudiandae alias quasi omnis assumenda eum quia tempore possimus nemo ut, in quod nam consequatur.</p>
+      </div>
     </div>
-  <div class="border-gray-600 p-6 my-6 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
-    <h4 class="text-sm font-bold">Inter-office Message</h4>
-    <p class="text-xs color-gray-200">This is space for inter office announcements and / or message</p>
-  </div>
 
-  <div>
-    <h1 class="font-bold align-center ">Upcoming Appointments</h1>
-  </div>
-
-<div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-yellow-200">
-    <h4 class="text-sm font-bold">July 5  4:00 pm</h4>
-    <p class="text-xs color-gray-200">John Smith</p>
-  </div>
-
-    <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-blue-200">
-    <h4 class="text-sm font-bold">July 5  4:15 pm</h4>
-    <p class="text-xs color-gray-200">Julie Skiles</p>
-  </div>
-
-    <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-blue-200">
-    <h4 class="text-sm font-bold">July 5  4:30 pm</h4>
-    <p class="text-xs color-gray-200">Nathan Smith</p>
-  </div>
-
-    <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-green-100">
-    <h4 class="text-sm font-bold">July 5  5:00 pm</h4>
-    <p class="text-xs color-gray-200">Pam Haskins</p>
-  </div>
-
-    <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-green-100">
-    <h4 class="text-sm font-bold">July 5  5:15 pm</h4>
-    <p class="text-xs color-gray-200">Donald Hufford</p>
-  </div>
-
-    <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-yellow-200">
-    <h4 class="text-sm font-bold">July 5  5:30 pm</h4>
-    <p class="text-xs color-gray-200">Runella Hufford</p>
-  </div>
-
+<div class="flex h-screen w-2/3 mx-auto mt-10 border-2 rounded-lg ">
 
   
-  
-  </div>
 
-  <div class="bg-gray-100 w-2/3 h-auto">
+  <div class="w-2/3 h-auto">
 <div class="flex h-full flex-col">
     <header class="relative z-20 flex flex-none items-center justify-between border-b border-gray-200 py-4 px-6">
       <div>
         <h1 class="text-lg font-semibold leading-6 text-gray-900">
-          <time datetime="2022-01-22" class="sm:hidden">Jan 22, 2022</time>
-          <time datetime="2022-01-22" class="hidden sm:inline">January 22, 2022</time>
+          <time datetime="2022-01-22" class="sm:hidden">{{format(today, 'MMMM dd')}}</time>
+          <time datetime="2022-01-22" class="hidden sm:inline">{{format(today, 'MMMM dd')}}</time>
         </h1>
-        <p class="mt-1 text-sm text-gray-500">Saturday</p>
+        <p class="mt-1 text-sm text-gray-500"></p>
       </div>
       <div class="flex items-center">
         <div class="flex items-center rounded-md shadow-sm md:items-stretch">
@@ -283,35 +248,81 @@
           </div>
         </div>
       </div>
-      <div class="hidden w-1/2 max-w-md flex-none border-l border-gray-100 py-10 px-8 md:block">
+<div class="hidden w-1/2 max-w-md flex-none border-l border-gray-100 py-10 px-8 md:block">
         <div class="flex items-center text-center text-gray-900">
           <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
             <span class="sr-only">Previous month</span>
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </button>
-          <div class="flex-auto font-semibold">January 2022</div>
-          <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
-            <span class="sr-only">Next month</span>
+          <div class="flex-auto font-semibold">{{format(firstDayCurrentMonth, 'MMMM yyyy')}}</div>
+          <button 
+            type="button"
+            @click="nextMonth" 
+            class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
+            <span class="sr-only"></span>
             <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
         <div class="mt-6 grid grid-cols-7 text-center text-xs leading-6 text-gray-500">
+          <div>S</div>
           <div>M</div>
           <div>T</div>
           <div>W</div>
           <div>T</div>
           <div>F</div>
           <div>S</div>
-          <div>S</div>
         </div>
         <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
-          <button v-for="(day, dayIdx) in days" :key="day.date" type="button" :class="['py-1.5 hover:bg-gray-100 focus:z-10', day.isCurrentMonth ? 'bg-white' : 'bg-gray-50', (day.isSelected || day.isToday) && 'font-semibold', day.isSelected && 'text-white', !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900', !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400', day.isToday && !day.isSelected && 'text-indigo-600', dayIdx === 0 && 'rounded-tl-lg', dayIdx === 6 && 'rounded-tr-lg', dayIdx === days.length - 7 && 'rounded-bl-lg', dayIdx === days.length - 1 && 'rounded-br-lg']">
-            <time :datetime="day.date" :class="['mx-auto flex h-7 w-7 items-center justify-center rounded-full', day.isSelected && day.isToday && 'bg-indigo-600', day.isSelected && !day.isToday && 'bg-gray-900']">{{ day.date.split('-').pop().replace(/^0/, '') }}</time>
+          <button v-for="(day, dayIdx) in days" :key="day.toString()" 
+            type="button"
+            @click= "setSelectedDay(day)"
+            :class="['py-1.5 hover:bg-gray-100 focus:z-10', 
+            isSameMonth(day, today) ? 'bg-white' : 'bg-gray-50', 
+            (isEqual(day, selectedDay) || isToday(day)) && 'font-semibold', 
+            isEqual(day, selectedDay) && 'text-white', 
+            !isEqual(day, selectedDay) && isSameMonth(day, today) && !isToday(day) && 'text-gray-900', 
+            !isEqual(day, selectedDay) && !isSameMonth(day, today) && !isToday(day) && 'text-gray-400', 
+            isToday(day) && !isEqual(day, selectedDay) && 'text-indigo-600', 
+            dayIdx === 0 && 'rounded-tl-lg', 
+            dayIdx === 6 && 'rounded-tr-lg', 
+            dayIdx === days.length - 7 && 'rounded-bl-lg', 
+            dayIdx === days.length - 1 && 'rounded-br-lg']">
+            <time :datetime="format(day, 'MMMM-dd-yyyy')" 
+            :class="['mx-auto flex h-7 w-7 items-center justify-center rounded-full', 
+            isEqual(day, selectedDay) && isToday(day) && 'bg-indigo-600', 
+            isEqual(day, selectedDay) && !isToday(day) && 'bg-gray-900']">
+            {{ format(day,'d' ) }}
+            </time>
           </button>
         </div>
       </div>
     </div>
   </div>  </div>
+<!--Begin Upcoming Appointment column-->
+    <div class="white w-1/3 overflow-y-auto py-4">
+    <div class="flex">
+      <h1 class="flex mx-auto pt-2 text-gray-900 text-lg font-semibold">Upcoming Appointments</h1>
+      </div>
+    <div class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-green-200">
+      <h4 class="text-sm font-bold">Date</h4>
+      <p class="text-xs color-gray-200">Client</p>
+    </div>
+
+    <div class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-yellow-200">
+      <h4 class="text-sm font-bold">Date</h4>
+      <p class="text-xs color-gray-200">Client</p>
+    </div>
+    
+        <div class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-blue-200">
+      <h4 class="text-sm font-bold">Date</h4>
+      <p class="text-xs color-gray-200">Client</p>
+    </div>
+
+        <div class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-pink-200">
+      <h4 class="text-sm font-bold">Date</h4>
+      <p class="text-xs color-gray-200">Client</p>
+    </div>
+  </div>
 
 </div>
   <div class="bg-slate-600 w-full flex justify-between p-10">
@@ -323,62 +334,42 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from '@heroicons/vue/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { eachDayOfInterval, endOfMonth, format,startOfMonth,addMonths, startOfToday, endOfWeek, isToday, isSameMonth, isEqual, add, parse } from 'date-fns'
+import { useState } from '../composables/state.js';
+let today = startOfToday()
 
-const days = [
+let [selectedDay, setSelectedDay] = useState(today)
+let [currentMonth, setCurrentMonth] = useState(format(today, 'MMMM-yyyy'))
+
+let firstDayCurrentMonth = parse(currentMonth.value, 'MMMM-yyyy', new Date())
+
+let days = eachDayOfInterval({
+  start: firstDayCurrentMonth,
+  end: endOfMonth(firstDayCurrentMonth)
+})
 
 
-  { date: '2021-12-27' },
-  { date: '2021-12-28' },
-  { date: '2021-12-29' },
-  { date: '2021-12-30' },
-  { date: '2021-12-31' },
-  { date: '2022-01-01', isCurrentMonth: true },
-  { date: '2022-01-02', isCurrentMonth: true },
-  { date: '2022-01-03', isCurrentMonth: true },
-  { date: '2022-01-04', isCurrentMonth: true },
-  { date: '2022-01-05', isCurrentMonth: true },
-  { date: '2022-01-06', isCurrentMonth: true },
-  { date: '2022-01-07', isCurrentMonth: true },
-  { date: '2022-01-08', isCurrentMonth: true },
-  { date: '2022-01-09', isCurrentMonth: true },
-  { date: '2022-01-10', isCurrentMonth: true },
-  { date: '2022-01-11', isCurrentMonth: true },
-  { date: '2022-01-12', isCurrentMonth: true, isToday: true },
-  { date: '2022-01-13', isCurrentMonth: true },
-  { date: '2022-01-14', isCurrentMonth: true },
-  { date: '2022-01-15', isCurrentMonth: true },
-  { date: '2022-01-16', isCurrentMonth: true },
-  { date: '2022-01-17', isCurrentMonth: true },
-  { date: '2022-01-18', isCurrentMonth: true },
-  { date: '2022-01-19', isCurrentMonth: true },
-  { date: '2022-01-20', isCurrentMonth: true },
-  { date: '2022-01-21', isCurrentMonth: true },
-  { date: '2022-01-22', isCurrentMonth: true, isSelected: true },
-  { date: '2022-01-23', isCurrentMonth: true },
-  { date: '2022-01-24', isCurrentMonth: true },
-  { date: '2022-01-25', isCurrentMonth: true },
-  { date: '2022-01-26', isCurrentMonth: true },
-  { date: '2022-01-27', isCurrentMonth: true },
-  { date: '2022-01-28', isCurrentMonth: true },
-  { date: '2022-01-29', isCurrentMonth: true },
-  { date: '2022-01-30', isCurrentMonth: true },
-  { date: '2022-01-31', isCurrentMonth: true },
-  { date: '2022-02-01' },
-  { date: '2022-02-02' },
-  { date: '2022-02-03' },
-  { date: '2022-02-04' },
-  { date: '2022-02-05' },
-  { date: '2022-02-06' },
-]
+
+const nextMonth = () => {
+  let firstDayNextMonth = addMonths(currentMonth, {months: 1})
+  setCurrentMonth(format(firstDayNextMonth, 'MMMM-yyyy')) 
+  console.log(format(firstDayNextMonth, 'MMMM-yyyy'))
+  }
+
 
 const container = ref(null)
 const containerNav = ref(null)
 const containerOffset = ref(null)
 
+
+
+
+
 onMounted(() => {
+
   // Set the container scroll position based on the current time.
   const currentMinute = new Date().getHours() * 60
   container.value.scrollTop =

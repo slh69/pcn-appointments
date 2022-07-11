@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen">
+    <div class="flex h-screen w-2/3 mx-auto">
         <div class="bg-gray-100 w-1/3 overflow-y-auto m-4">
             <div class="flex">
                 <img src="../assets/pcn.png" height='100' width='100' alt="">
@@ -11,8 +11,8 @@
                     4.</p>
             </div>
 
-            <div class="pb-4 place-content-center">
-                <h2 class="text-xl font-extrabold text-cyan-400 tracking-tight sm:text-4xl">Meet our team</h2>
+            <div class="pb-6">
+                <h2 class="text-xl text-center font-extrabold text-cyan-400 tracking-tight sm:text-4xl">Meet our team</h2>
             </div>
             <div class="flex justify-evenly pb-4 gap-2 mx-2">
                 <ul role="list" class="w-1/3">
@@ -61,26 +61,41 @@
             </div>
 
 
-            <div class="flex justify-between px-8 pt-8">
+            <div class="grid items-center">
 
                 <div>
-                    <h1 class="font-bold align-center ">Your Upcoming Appointments</h1>
+                    <h1 class="font-bold text-center pb-6">Your Upcoming Appointments</h1>
                 </div>
-                <div>
+                <div class="mx-auto pb-6">
                     <button type="button"
-                        class="ml-6 rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
+                        class="rounded-md border border-transparent bg-cyan-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
                         Appointment</button>
                 </div>
             </div>
 
             <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
-                <h4 class="text-sm font-bold">July 5 4:00 pm</h4>
+                <h4 class="text-sm font-bold">July 20 4:00 pm</h4>
                 <p class="text-xs color-gray-200">Sam Smith</p>
                 <p class="text-xs color-gray-200">with Dr Hoskins</p>
             </div>
 
-            <h1 class="text-red-500 font-bold pt-10 px-6">Contains appointments for the signed in member and any members in his/her group</h1>
+            <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
+                <h4 class="text-sm font-bold">July 20 4:10 pm</h4>
+                <p class="text-xs color-gray-200">Mrs. Sam Smith</p>
+                <p class="text-xs color-gray-200">with Dr Sam</p>
+            </div>
 
+            <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
+                <h4 class="text-sm font-bold">July 20 4:30 pm</h4>
+                <p class="text-xs color-gray-200">Sam Smith JR</p>
+                <p class="text-xs color-gray-200">with Dr Hoskins</p>
+            </div>     
+            
+            <div class="border-gray-100 p-2 mt-2 mr-3 ml-2 rounded-l shadow-md mx-auto bg-white">
+                <h4 class="text-sm font-bold">July 20 4:40 pm</h4>
+                <p class="text-xs color-gray-200">Samantha Smith</p>
+                <p class="text-xs color-gray-200">with Dr Hoskins</p>
+            </div>               
 
 
         </div>
