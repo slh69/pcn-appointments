@@ -254,7 +254,7 @@
             <span class="sr-only">Previous month</span>
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </button>
-          <div class="flex-auto font-semibold">{{format(firstDayCurrentMonth, 'MMMM yyyy')}}</div>
+          <div class="flex-auto font-semibold">{{format(firstDayCurrentMonth, 'MMM yyyy')}}</div>
           <button 
             type="button"
             @click="nextMonth" 
@@ -339,34 +339,28 @@ import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { eachDayOfInterval, endOfMonth, format,startOfMonth,addMonths, startOfToday, endOfWeek, isToday, isSameMonth, isEqual, add, parse } from 'date-fns'
 import { useState } from '../composables/state.js';
+
 let today = startOfToday()
-
 let [selectedDay, setSelectedDay] = useState(today)
-let [currentMonth, setCurrentMonth] = useState(format(today, 'MMMM-yyyy'))
+let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
 
-let firstDayCurrentMonth = parse(currentMonth.value, 'MMMM-yyyy', new Date())
+let firstDayCurrentMonth = parse(currentMonth.value, 'MMM-yyyy', new Date())
+console.log(firstDayCurrentMonth)
 
 let days = eachDayOfInterval({
   start: firstDayCurrentMonth,
-  end: endOfMonth(firstDayCurrentMonth)
+  end: endOfWeek(endOfMonth(firstDayCurrentMonth))
 })
+console.log(days)
 
-
-
-const nextMonth = () => {
-  let firstDayNextMonth = addMonths(currentMonth, {months: 1})
-  setCurrentMonth(format(firstDayNextMonth, 'MMMM-yyyy')) 
-  console.log(format(firstDayNextMonth, 'MMMM-yyyy'))
-  }
-
+function nextMonth () {
+  let firstDayNextMonth = add(firstDayCurrentMonth, {months: 1})
+  setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
+}
 
 const container = ref(null)
 const containerNav = ref(null)
 const containerOffset = ref(null)
-
-
-
-
 
 onMounted(() => {
 
@@ -378,3 +372,16 @@ onMounted(() => {
     1440
 })
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
