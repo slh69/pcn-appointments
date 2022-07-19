@@ -250,11 +250,11 @@
       </div>
 <div class="hidden w-1/2 max-w-md flex-none border-l border-gray-100 py-10 px-8 md:block">
         <div class="flex items-center text-center text-gray-900">
-          <button type="button" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
+          <button type="button" @click="lastMonth"  class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
             <span class="sr-only">Previous month</span>
             <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
           </button>
-          <div class="flex-auto font-semibold">{{format(firstDayCurrentMonth, 'MMM yyyy')}}</div>
+          <div class="flex-auto font-semibold">{{currentMonth }}</div>
           <button 
             type="button"
             @click="nextMonth" 
@@ -343,20 +343,27 @@ import { useState } from '../composables/state.js';
 let today = startOfToday()
 let [selectedDay, setSelectedDay] = useState(today)
 let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
-
-let firstDayCurrentMonth = parse(currentMonth.value, 'MMM-yyyy', new Date())
-console.log(firstDayCurrentMonth)
+let firstDayCurrentMonth = ref(parse(currentMonth.value, 'MMM-yyyy', new Date()))
+console.log('FDCM outside', firstDayCurrentMonth.value)
 
 let days = eachDayOfInterval({
-  start: firstDayCurrentMonth,
-  end: endOfWeek(endOfMonth(firstDayCurrentMonth))
+  start: startOfMonth(firstDayCurrentMonth.value),
+  end: endOfWeek(endOfMonth(firstDayCurrentMonth.value)),
 })
-console.log(days)
 
-function nextMonth () {
-  let firstDayNextMonth = add(firstDayCurrentMonth, {months: 1})
-  setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
+
+const nextMonth = () => {
+  //  let firstDayCurrentMonth = ref(parse(currentMonth.value, 'MMM-yyyy', new Date()))
+    let firstDayNextMonth = add(firstDayCurrentMonth.value, {months: 1})
+    setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
+    console.log('fdcm inside', currentMonth)
 }
+
+const lastMonth = () => {
+    let firstDayCurrentMonth = parse(currentMonth.value, 'MMMM yyyy', new Date())
+    let firstDayNextMonth = add(firstDayCurrentMonth, {months: -1})
+    setCurrentMonth(format(firstDayNextMonth, 'MMMM yyyy'))
+    }
 
 const container = ref(null)
 const containerNav = ref(null)
