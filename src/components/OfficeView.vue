@@ -26,10 +26,10 @@
           <div>
             <h1 class="text-lg font-semibold leading-6 text-gray-900">
               <time datetime="2022-01-22" class="sm:hidden">{{
-                format(today, "MMMM dd")
+                format(selectedDay, "MMMM dd")
               }}</time>
               <time datetime="2022-01-22" class="hidden sm:inline">{{
-                format(today, "MMMM dd")
+                format(selectedDay, "MMMM dd")
               }}</time>
             </h1>
             <p class="mt-1 text-sm text-gray-500"></p>
@@ -41,6 +41,7 @@
               <button
                 type="button"
                 class="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+                @click="prevDay()"
               >
                 <span class="sr-only">Previous month</span>
                 <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
@@ -48,6 +49,7 @@
               <button
                 type="button"
                 class="hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block"
+                @click="currentDay()"
               >
                 Today
               </button>
@@ -55,6 +57,7 @@
               <button
                 type="button"
                 class="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+                @click="nextDay()"
               >
                 <span class="sr-only">Next month</span>
                 <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
@@ -729,6 +732,16 @@ const lastMonth = () => {
     start: add(firstDayLastMonth, { days: currentMonthStartDay }),
     end: endOfWeek(endOfMonth(firstDayLastMonth)),
   });
+};
+
+const prevDay = () => {
+  setSelectedDay(add(selectedDay.value, { days: -1 }));
+};
+const nextDay = () => {
+  setSelectedDay(add(selectedDay.value, { days: 1 }));
+};
+const currentDay = () => {
+  setSelectedDay(startOfToday());
 };
 
 const container = ref(null);
