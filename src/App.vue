@@ -15,6 +15,7 @@
   import OfficeView from "./components/OfficeView.vue"
   import ClientView from "./components/ClientView.vue"
   import Settings from "./components/Settings.vue"
+  import Test from "./components/Test.vue"
   import {ref} from 'vue'
 
   const activeTab = ref('showOffice')

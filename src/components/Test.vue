@@ -26,10 +26,10 @@
           <div>
             <h1 class="text-lg font-semibold leading-6 text-gray-900">
               <time datetime="2022-01-22" class="sm:hidden">{{
-                format(selectedDay, "MMMM dd")
+                format(today, "MMMM dd")
               }}</time>
               <time datetime="2022-01-22" class="hidden sm:inline">{{
-                format(selectedDay, "MMMM dd")
+                format(today, "MMMM dd")
               }}</time>
             </h1>
             <p class="mt-1 text-sm text-gray-500"></p>
@@ -41,7 +41,6 @@
               <button
                 type="button"
                 class="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
-                @click="prevDay()"
               >
                 <span class="sr-only">Previous month</span>
                 <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
@@ -49,7 +48,6 @@
               <button
                 type="button"
                 class="hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block"
-                @click="currentDay()"
               >
                 Today
               </button>
@@ -57,7 +55,6 @@
               <button
                 type="button"
                 class="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
-                @click="nextDay()"
               >
                 <span class="sr-only">Next month</span>
                 <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
@@ -624,30 +621,40 @@
       </div>
     </div>
     <!--Begin Upcoming Appointment column-->
-<section class="mt-12 md:mt-0 md:pl-14">
-      <h2 class="font-semibold mt-5 text-gray-900">Upcoming Appointments<!--Appointments for <time datetime="{{format(selectedDay, 'yyyy-MM-dd')}}">{{format(selectedDay, 'MMM dd yyyy')}}</time>--></h2>
-      <ol class="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-        <li v-for="meeting in sortedMeetings" :key="meeting.id" class="group flex items-center space-x-4 rounded-xl py-2 px-4 focus-within:bg-gray-100 hover:bg-gray-100">
-          <img :src="meeting.imageUrl" alt="" class="h-10 w-10 flex-none rounded-full" />
-          <div class="flex-auto">
-            <p class="text-gray-900">{{ meeting.name }}</p>
-            <p class="text-gray-900">{{ format(parseISO(meeting.startDatetime, new Date()), 'MMM dd yyyy') }}</p>
-            <p class="mt-0.5">
-              <time :datetime="meeting.startDatetime">{{ format(parseISO(meeting.startDatetime, new Date()), 'hh:mm a') }}</time> -
-              <time :datetime="meeting.endDatetime">{{ format(parseISO(meeting.endDatetime, new Date()), 'hh:mm a') }}</time>
-            </p>
-          </div>
-          <Menu as="div" class="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100">
-            <div>
-              <MenuButton class="-m-2 flex items-center rounded-full p-1.5 text-gray-500 hover:text-gray-600">
-                <span class="sr-only">Open options</span>
-                <DotsVerticalIcon class="h-6 w-6" aria-hidden="true" />
-              </MenuButton>
-            </div>
-          </Menu>
-        </li>
-      </ol>
-    </section>
+    <div class="white w-1/3 overflow-y-auto py-4">
+      <div class="flex">
+        <h1 class="flex mx-auto pt-2 text-gray-900 text-lg font-semibold">
+          Upcoming Appointments
+        </h1>
+      </div>
+      <div
+        class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-green-200"
+      >
+        <h4 class="text-sm font-bold">Date</h4>
+        <p class="text-xs color-gray-200">Client</p>
+      </div>
+
+      <div
+        class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-yellow-200"
+      >
+        <h4 class="text-sm font-bold">Date</h4>
+        <p class="text-xs color-gray-200">Client</p>
+      </div>
+
+      <div
+        class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-blue-200"
+      >
+        <h4 class="text-sm font-bold">Date</h4>
+        <p class="text-xs color-gray-200">Client</p>
+      </div>
+
+      <div
+        class="border-gray-600 border-1 mx-6 mt-10 rounded-l shadow-md bg-pink-200"
+      >
+        <h4 class="text-sm font-bold">Date</h4>
+        <p class="text-xs color-gray-200">Client</p>
+      </div>
+    </div>
   </div>
   <div class="bg-slate-600 w-full flex justify-between p-10">
     <h1 class="text-white">Email: dochoskins.com</h1>
@@ -657,19 +664,20 @@
 </template>
 
 <script setup>
-import { ref,reactive, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   DotsHorizontalIcon,
-  DotsVerticalIcon
 } from "@heroicons/vue/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
   eachDayOfInterval,
   endOfMonth,
   format,
+  startOfMonth,
+  addMonths,
   startOfToday,
   endOfWeek,
   isToday,
@@ -677,7 +685,6 @@ import {
   isEqual,
   add,
   parse,
-  parseISO
 } from "date-fns";
 import { useState } from "../composables/state.js";
 let today = startOfToday();
@@ -716,65 +723,6 @@ const lastMonth = () => {
     end: endOfWeek(endOfMonth(firstDayLastMonth)),
   });
 };
-const prevDay = () => {
-  setSelectedDay(add(selectedDay.value, { days: -1 }));
-};
-const nextDay = () => {
-  setSelectedDay(add(selectedDay.value, { days: 1 }));
-};
-const currentDay = () => {
-  setSelectedDay(startOfToday());
-};
-
-const meetings = reactive([
-  {
-    id: 1,
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-10-11T13:00',
-    endDatetime: '2022-10-11T14:30',
-  },
-  {
-    id: 2,
-    name: 'Michael Foster',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-09-20T09:00',
-    endDatetime: '2022-09-20T11:30',
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-08-20T17:00',
-    endDatetime: '2022-08-20T18:30',
-  },
-  {
-    id: 4,
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-09-09T13:00',
-    endDatetime: '2022-09-09T14:30',
-  },
-  {
-    id: 5,
-    name: 'Michael Foster',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2022-09-13T14:00',
-    endDatetime: '2022-09-13T14:30',
-  },
-])
-
-const sortedMeetings = computed(() => {
-   meetings.sort((a,b) => {
-    return new Date(a.startDatetime) - (new Date(b.startDatetime))
-  })
-    return meetings
-})
 const container = ref(null);
 const containerNav = ref(null);
 const containerOffset = ref(null);
