@@ -724,6 +724,18 @@ const nextDay = () => {
 };
 const currentDay = () => {
   setSelectedDay(startOfToday());
+  setCurrentMonth(format(today, "MMM-yyyy"));
+
+  firstDayCurrentMonth.value = parse(
+    currentMonth.value,
+    "MMM-yyyy",
+    new Date()
+  );
+  let currentMonthStartDay = -firstDayCurrentMonth.value.getDay();
+  days.value = eachDayOfInterval({
+    start: add(firstDayCurrentMonth.value, { days: currentMonthStartDay }),
+    end: endOfWeek(endOfMonth(firstDayCurrentMonth.value)),
+  });
 };
 
 const meetings = reactive([
